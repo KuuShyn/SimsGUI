@@ -1,5 +1,5 @@
 # SimsGUI
-Project for CPC2
+
 
 Simple Inventory Management System GUI
 
