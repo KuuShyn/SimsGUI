@@ -5,7 +5,7 @@ Simple Inventory Management System GUI
 
 Features: 
 
-like any other CRUD operations: <br/>
+like any other CRUD applications: <br/>
 Create - create data to db <br/>
 Read - display the data from db to treeview <br/>
 Update - update data from db <br/>
