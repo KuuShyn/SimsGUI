@@ -1,3 +1,4 @@
+#King AJ magalona0 - Solo
 from SIMS import App
 import mysql.connector
 
@@ -15,3 +16,4 @@ curdb.close()
 
 app = App()
 app.run()
+#King AJ magalona0 - Solo

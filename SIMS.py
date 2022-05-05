@@ -1,3 +1,4 @@
+#King AJ magalona - Solo
 import tkinter as tk
 from tkinter import ttk
 import mysql.connector
@@ -9,15 +10,15 @@ class App:
     def __init__(self):
         self.root = tk.Tk()
         self.root.title('Simple Inventory Management System GUI')
-        self.root.geometry('685x280')        
+        self.root.geometry('685x280')
+        self.root.resizable(False, False)        
 
         #left Frame
         self.left_frame = ttk.Frame(self.root)
         self.left_frame.grid(row=0, column=0, padx=5)
         
         #Item Entry
-        self.set_id = tk.StringVar()
-        
+        self.set_id = tk.StringVar()        
         self.set_id_label = ttk.Label(self.left_frame, textvariable=self.set_id)
         self.set_id_label.grid(row=0, column=1)
 
@@ -27,7 +28,7 @@ class App:
         self.Item_entry = ttk.Entry(self.left_frame, textvariable=self.set_item)
         self.Item_entry.grid(row=1, column=1)
 
-        #validation command
+        #validation command for the digits only entries
         vcmd = (self.root.register(self.validation))
 
         #Quantity Entry
@@ -49,7 +50,6 @@ class App:
         #Buttons
         self.save_Button = ttk.Button(self.left_frame, text='Save', command=self.save)
         self.save_Button.grid(row=5, column=0)
-
         self.Update_Button = ttk.Button(self.left_frame, text='Update', command=self.update)
         self.Update_Button.grid(row=5, column=1) 
         self.remove_Button = ttk.Button(self.left_frame, text='Remove', command=self.remove)
@@ -119,6 +119,7 @@ class App:
         
         #save data to database
     def save(self):
+        
         #catch item duplicates        
         try:     
             sql = "INSERT INTO Inventory (Item, Quantity, Price) VALUES(%s, %s, %s)"
@@ -140,13 +141,14 @@ class App:
         self.clear()
         self.load()              
 
-    #display data from mysql table item column = 1, quantity column = 2 price column =3
+    #display data from mysql table id column 0 = item column = 1, quantity column = 2 price column =3
     def load(self):
         self.mycur.execute("SELECT * FROM Inventory")
         row = self.mycur.fetchall()
         for records in row:
             self.tree.insert('', tk.END, values=records)        
-        
+#King AJ magalona - Solo
+    #updates the item
     def update(self):
         sql = "UPDATE Inventory SET Item=%s, Quantity=%s, Price=%s WHERE itemID=%s"
         val = (self.Item_entry.get(), self.Quantity_entry.get(), self.Price_entry.get(), self.set_id.get())
@@ -157,13 +159,15 @@ class App:
         self.mydb.commit()
         self.clear()
         self.load()   
-
+#King AJ magalona - Solo
+    #clears the entries
     def clear(self):
         self.set_id.set("")
         self.set_item.set("")
         self.set_quantity.set("")
         self.set_price.set("")
-
+        
+    #removes the item
     def remove(self):
         sql = "DELETE FROM Inventory WHERE Item=%s"
         val = (self.Item_entry.get(), )
@@ -175,19 +179,20 @@ class App:
         self.clear()
         self.load()   
 
+    #search command
     def filterTreeView(self, event):
         self.mycur.execute("SELECT * FROM Inventory Where Item LIKE '%"+self.search.get()+"%'")
         row = self.mycur.fetchall()
         
         if len(row)>0:
             self.tree.delete(*self.tree.get_children())
-            for search in row:
-                self.tree.insert('', tk.END, values=search)
+            for results in row:
+                self.tree.insert('', tk.END, values=results)
         else:
             self.tree.delete(*self.tree.get_children())
             self.load()
 
-    #Treeview Selected items item column = 0 quantity column = 1 price Column = 2
+    #Treeview Selected items id column = 0, item column = 1, quantity column = 2, price Column = 3
     def item_selected(self, event):
         for selected_item in self.tree.selection():
             item = self.tree.item(selected_item)
@@ -196,4 +201,4 @@ class App:
             self.set_item.set(record[1])
             self.set_quantity.set(record[2])
             self.set_price.set(record[3])
-        
+#King AJ magalona - Solo
