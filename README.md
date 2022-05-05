@@ -3,14 +3,14 @@ Project for CPC2
 
 Simple Inventory Management System GUI
 
-Features:
+Features: 
 
-like any other CRUD operations
-Create - create data to db
-Read - display the data from db to treeview
-Update - update data from db
-Delete - delete data from db
+like any other CRUD operations: <br/>
+Create - create data to db <br/>
+Read - display the data from db to treeview <br/>
+Update - update data from db <br/>
+Delete - delete data from db <br/>
 
-Search - look for keywords/characters from db and display to treeview if matches
+Search - look for keywords/characters from db and display to treeview if matches 
 
 King AJ Magalona - Solo
